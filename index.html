@@ -408,31 +408,32 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 2px;
+            width: 3px;
             height: 100%;
             background: var(--primary);
             top: 0;
+            bottom: 0;
             z-index: 1;
         }
 
         .timeline-item {
-            display: block;
-            margin-bottom: 80px;
             position: relative;
-            min-height: 150px;
+            margin: 0 0 60px 0;
+            width: 100%;
+            clear: both;
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
-            width: calc(50% - 50px);
+            width: 45%;
             float: left;
-            margin-right: 50px;
+            margin-right: 10%;
             text-align: right;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
-            width: calc(50% - 50px);
+            width: 45%;
             float: right;
-            margin-left: 50px;
+            margin-left: 10%;
             text-align: left;
         }
 
@@ -444,32 +445,34 @@
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            box-sizing: border-box;
         }
 
         .timeline-content:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
             background: rgba(0, 255, 204, 0.05);
             box-shadow: 0 20px 40px rgba(0, 255, 204, 0.2);
+            border-color: var(--primary);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border: 4px solid var(--dark);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary);
+            z-index: 3;
         }
 
         .timeline-item::after {
             content: '';
             display: table;
             clear: both;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 60px;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
-            border: 3px solid var(--dark);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--primary);
-            z-index: 3;
         }
 
         /* Voice Command Button */
