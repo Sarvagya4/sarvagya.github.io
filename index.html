@@ -1,28 +1,9 @@
-<!-- <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Sarvagya • AI/ML Engineer</title>
-</head>
-<body class="bg-gray-50 text-gray-900">
-  <main class="max-w-xl mx-auto py-8">
-    <h1 class="text-4xl font-bold mb-2">Sarvagya</h1>
-    <p class="text-gray-600 mb-4">AI/ML Engineer & Multi-agent Developer</p>
-    <div class="space-x-4">
-      <a href="/resume/" class="px-3 py-1 border rounded hover:bg-gray-100">Resume</a>
-      <a href="https://github.com/Sarvagya4" class="px-3 py-1 border rounded hover:bg-gray-100">GitHub</a>
-    </div>
-  </main>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - AI Interactive Resume</title>
+    <title>Sarvagya - AI/ML Engineer & Multi-agent Developer</title>
     <style>
         * {
             margin: 0;
@@ -134,6 +115,32 @@
 
         @keyframes blink {
             50% { opacity: 0; }
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-link {
+            padding: 12px 24px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
         }
 
         /* AI Chat Interface */
@@ -480,6 +487,11 @@
             .timeline-dot {
                 left: 30px;
             }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -489,9 +501,13 @@
 
     <!-- Header -->
     <header>
-        <h1 class="glitch-text">YOUR NAME</h1>
+        <h1 class="glitch-text">SARVAGYA</h1>
         <div class="typing-text">
             <span id="typed-text"></span><span class="cursor"></span>
+        </div>
+        <div class="nav-links">
+            <a href="/resume/" class="nav-link">Resume</a>
+            <a href="https://github.com/Sarvagya4" class="nav-link">GitHub</a>
         </div>
     </header>
 
@@ -511,7 +527,7 @@
 
         <div class="chat-messages" id="chatMessages">
             <div class="message ai-message">
-                👋 Hi! I'm your AI resume assistant. Ask me anything about your experience, skills, or projects. You can also use voice commands!
+                👋 Hi! I'm your AI resume assistant. Ask me anything about my experience, skills, or projects. You can also use voice commands!
             </div>
         </div>
 
@@ -530,37 +546,37 @@
         </h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <h3>JavaScript</h3>
+                <h3>Python</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 90%;"></div>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>React</h3>
+                <h3>Machine Learning</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 85%;"></div>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>Python</h3>
+                <h3>Deep Learning</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 80%;"></div>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>AI/ML</h3>
+                <h3>Multi-agent Systems</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 75%;"></div>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>Node.js</h3>
+                <h3>Natural Language Processing</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 88%;"></div>
                 </div>
             </div>
             <div class="skill-card">
-                <h3>Cloud</h3>
+                <h3>Cloud Computing</h3>
                 <div class="skill-level">
                     <div class="skill-progress" style="width: 70%;"></div>
                 </div>
@@ -578,27 +594,27 @@
         
         <div class="timeline-item">
             <div class="timeline-content">
-                <h3>Senior Developer</h3>
+                <h3>AI/ML Engineer</h3>
                 <p style="color: var(--primary); margin: 10px 0;">Tech Company | 2023 - Present</p>
-                <p>Leading AI integration projects and building scalable applications with modern tech stack.</p>
+                <p>Developing cutting-edge AI solutions and multi-agent systems for complex problem solving.</p>
             </div>
             <div class="timeline-dot"></div>
         </div>
         
         <div class="timeline-item">
             <div class="timeline-content">
-                <h3>Full Stack Developer</h3>
-                <p style="color: var(--primary); margin: 10px 0;">Startup Inc | 2021 - 2023</p>
-                <p>Developed innovative solutions using React, Node.js, and cloud technologies.</p>
+                <h3>Machine Learning Developer</h3>
+                <p style="color: var(--primary); margin: 10px 0;">AI Startup | 2021 - 2023</p>
+                <p>Built and deployed machine learning models for various applications including NLP and computer vision.</p>
             </div>
             <div class="timeline-dot"></div>
         </div>
         
         <div class="timeline-item">
             <div class="timeline-content">
-                <h3>Junior Developer</h3>
-                <p style="color: var(--primary); margin: 10px 0;">Digital Agency | 2020 - 2021</p>
-                <p>Started journey in web development, learning modern frameworks and best practices.</p>
+                <h3>Research Assistant</h3>
+                <p style="color: var(--primary); margin: 10px 0;">University Lab | 2020 - 2021</p>
+                <p>Conducted research in artificial intelligence and published papers on multi-agent systems.</p>
             </div>
             <div class="timeline-dot"></div>
         </div>
@@ -631,11 +647,11 @@
 
         // Typing Effect
         const roles = [
-            "Full Stack Developer",
-            "AI Enthusiast",
-            "Problem Solver",
-            "Tech Innovator",
-            "Creative Coder"
+            "AI/ML Engineer",
+            "Multi-agent Developer",
+            "Machine Learning Specialist",
+            "NLP Researcher",
+            "Tech Innovator"
         ];
         
         let roleIndex = 0;
@@ -671,11 +687,11 @@
 
         // AI Chat Responses
         const responses = {
-            skills: "I'm proficient in JavaScript, React, Python, Node.js, and AI/ML technologies. I specialize in building scalable web applications with modern frameworks and integrating AI capabilities. My expertise includes cloud deployment, database management, and creating intuitive user experiences.",
-            experience: "I have 4+ years of experience in software development. Currently working as a Senior Developer focusing on AI integration. Previously worked at a startup building full-stack applications and started my career at a digital agency. I've led multiple successful projects and mentored junior developers.",
-            projects: "I've built several exciting projects including: 1) An AI-powered chatbot using GPT APIs, 2) A real-time collaboration platform with WebRTC, 3) A machine learning model for predictive analytics, 4) Multiple responsive web applications for clients across various industries.",
-            contact: "You can reach me at: Email: your.email@example.com | LinkedIn: linkedin.com/in/yourprofile | GitHub: github.com/yourusername | Phone: +1234567890. I'm always open to discussing new opportunities and interesting projects!",
-            default: "I'm here to help you learn more about my background! You can ask me about my skills, experience, projects, education, or how to contact me. What would you like to know?"
+            skills: "I'm proficient in Python, Machine Learning, Deep Learning, Multi-agent Systems, and Natural Language Processing. I specialize in building AI solutions with modern frameworks and integrating complex systems. My expertise includes cloud deployment, model optimization, and creating intelligent agent architectures.",
+            experience: "I have 3+ years of experience in AI development. Currently working as an AI/ML Engineer focusing on multi-agent systems. Previously worked at an AI startup building machine learning models and started my career as a research assistant in a university lab. I've led multiple successful AI projects and published research papers.",
+            projects: "I've built several exciting projects including: 1) A multi-agent negotiation system using reinforcement learning, 2) A natural language processing pipeline for document analysis, 3) A distributed machine learning framework, 4) Multiple AI-powered applications for clients across various industries.",
+            contact: "You can reach me at: GitHub: github.com/Sarvagya4. I'm always open to discussing new opportunities and interesting AI projects!",
+            default: "I'm here to help you learn more about my background! You can ask me about my skills, experience, projects, or how to contact me. What would you like to know?"
         };
 
         function askQuestion(topic) {
