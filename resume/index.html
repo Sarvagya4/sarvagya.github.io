@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html>
 <head>
   <meta charset="utf-8"/>
@@ -15,4 +15,772 @@
     </p>
   </main>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - AI Interactive Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ffcc;
+            --secondary: #7c3aed;
+            --dark: #0a0a0a;
+            --text: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Particle Background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                opacity: 0;
+                transform: translateY(100vh) translateX(0);
+            }
+            10%, 90% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-100vh) translateX(100px);
+            }
+        }
+
+        /* Header with Typing Effect */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            position: relative;
+        }
+
+        .glitch-text {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 
+                    0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            15% {
+                text-shadow: 
+                    0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            16% {
+                text-shadow: 
+                    -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            height: 40px;
+            color: var(--primary);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.5rem;
+            background: var(--primary);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* AI Chat Interface */
+        .ai-chat {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .ai-indicator {
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 18px;
+            border-radius: 15px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--secondary), #9333ea);
+            margin-left: 20%;
+            text-align: right;
+        }
+
+        .ai-message {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            margin-right: 20%;
+        }
+
+        .quick-questions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .quick-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .send-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary), #00ccaa);
+            border: none;
+            border-radius: 10px;
+            color: var(--dark);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Skills Visualization */
+        .skills-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .skill-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.3);
+        }
+
+        .skill-level {
+            margin-top: 10px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #00ccaa);
+            border-radius: 5px;
+            animation: fillProgress 2s ease;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), transparent);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            margin: 0 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            background: rgba(0, 255, 204, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 204, 0.2);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Voice Command Button */
+        .voice-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #00ccaa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.5);
+            z-index: 1000;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 255, 204, 0.7);
+        }
+
+        .voice-btn.listening {
+            animation: voicePulse 1.5s infinite;
+        }
+
+        @keyframes voicePulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 30px rgba(0, 255, 204, 0);
+            }
+        }
+
+        /* 3D Card Effect */
+        .card-3d {
+            perspective: 1000px;
+        }
+
+        .card-3d-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 204, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: column !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <h1 class="glitch-text">YOUR NAME</h1>
+        <div class="typing-text">
+            <span id="typed-text"></span><span class="cursor"></span>
+        </div>
+    </header>
+
+    <!-- AI Chat Interface -->
+    <div class="ai-chat">
+        <div class="chat-header">
+            <div class="ai-indicator"></div>
+            <h2>AI Resume Assistant</h2>
+        </div>
+        
+        <div class="quick-questions">
+            <button class="quick-btn" onclick="askQuestion('skills')">What are my skills?</button>
+            <button class="quick-btn" onclick="askQuestion('experience')">Tell me about experience</button>
+            <button class="quick-btn" onclick="askQuestion('projects')">Show me projects</button>
+            <button class="quick-btn" onclick="askQuestion('contact')">How to contact?</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                👋 Hi! I'm your AI resume assistant. Ask me anything about your experience, skills, or projects. You can also use voice commands!
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about this resume..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Skills Visualization -->
+    <div class="skills-container">
+        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 20px;">
+            <span style="background: linear-gradient(90deg, var(--primary), #00ccaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Skills Matrix
+            </span>
+        </h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>JavaScript</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 90%;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>React</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Python</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 80%;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>AI/ML</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 75%;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Node.js</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 88%;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h3>Cloud</h3>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 70%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Timeline -->
+    <div class="timeline">
+        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 40px;">
+            <span style="background: linear-gradient(90deg, var(--primary), #00ccaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Experience Journey
+            </span>
+        </h2>
+        
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>Senior Developer</h3>
+                <p style="color: var(--primary); margin: 10px 0;">Tech Company | 2023 - Present</p>
+                <p>Leading AI integration projects and building scalable applications with modern tech stack.</p>
+            </div>
+            <div class="timeline-dot"></div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>Full Stack Developer</h3>
+                <p style="color: var(--primary); margin: 10px 0;">Startup Inc | 2021 - 2023</p>
+                <p>Developed innovative solutions using React, Node.js, and cloud technologies.</p>
+            </div>
+            <div class="timeline-dot"></div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>Junior Developer</h3>
+                <p style="color: var(--primary); margin: 10px 0;">Digital Agency | 2020 - 2021</p>
+                <p>Started journey in web development, learning modern frameworks and best practices.</p>
+            </div>
+            <div class="timeline-dot"></div>
+        </div>
+    </div>
+
+    <!-- Voice Command Button -->
+    <div class="voice-btn" id="voiceBtn" onclick="toggleVoice()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+        </svg>
+    </div>
+
+    <script>
+        // Particle Background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Typing Effect
+        const roles = [
+            "Full Stack Developer",
+            "AI Enthusiast",
+            "Problem Solver",
+            "Tech Innovator",
+            "Creative Coder"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeText() {
+            const currentRole = roles[roleIndex];
+            const typedElement = document.getElementById('typed-text');
+            
+            if (!isDeleting) {
+                typedElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    setTimeout(typeText, 2000);
+                    return;
+                }
+            } else {
+                typedElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                }
+            }
+            
+            setTimeout(typeText, isDeleting ? 50 : 100);
+        }
+        typeText();
+
+        // AI Chat Responses
+        const responses = {
+            skills: "I'm proficient in JavaScript, React, Python, Node.js, and AI/ML technologies. I specialize in building scalable web applications with modern frameworks and integrating AI capabilities. My expertise includes cloud deployment, database management, and creating intuitive user experiences.",
+            experience: "I have 4+ years of experience in software development. Currently working as a Senior Developer focusing on AI integration. Previously worked at a startup building full-stack applications and started my career at a digital agency. I've led multiple successful projects and mentored junior developers.",
+            projects: "I've built several exciting projects including: 1) An AI-powered chatbot using GPT APIs, 2) A real-time collaboration platform with WebRTC, 3) A machine learning model for predictive analytics, 4) Multiple responsive web applications for clients across various industries.",
+            contact: "You can reach me at: Email: your.email@example.com | LinkedIn: linkedin.com/in/yourprofile | GitHub: github.com/yourusername | Phone: +1234567890. I'm always open to discussing new opportunities and interesting projects!",
+            default: "I'm here to help you learn more about my background! You can ask me about my skills, experience, projects, education, or how to contact me. What would you like to know?"
+        };
+
+        function askQuestion(topic) {
+            const input = document.getElementById('chatInput');
+            input.value = topic === 'skills' ? "What are your technical skills?" :
+                         topic === 'experience' ? "Tell me about your work experience" :
+                         topic === 'projects' ? "What projects have you worked on?" :
+                         "How can I contact you?";
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user-message';
+            userMsg.textContent = message;
+            chatMessages.appendChild(userMsg);
+            
+            // Clear input
+            input.value = '';
+            
+            // Simulate AI thinking
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai-message';
+                
+                // Determine response based on keywords
+                let response = responses.default;
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('skill') || lowerMessage.includes('tech')) {
+                    response = responses.skills;
+                } else if (lowerMessage.includes('experience') || lowerMessage.includes('work')) {
+                    response = responses.experience;
+                } else if (lowerMessage.includes('project')) {
+                    response = responses.projects;
+                } else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('phone')) {
+                    response = responses.contact;
+                }
+                
+                aiMsg.textContent = response;
+                chatMessages.appendChild(aiMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Voice Commands (Simulated)
+        let isListening = false;
+        
+        function toggleVoice() {
+            const voiceBtn = document.getElementById('voiceBtn');
+            isListening = !isListening;
+            
+            if (isListening) {
+                voiceBtn.classList.add('listening');
+                // Simulate voice recognition
+                setTimeout(() => {
+                    if (isListening) {
+                        const commands = ['Tell me about your skills', 'What is your experience?', 'Show me your projects'];
+                        const randomCommand = commands[Math.floor(Math.random() * commands.length)];
+                        document.getElementById('chatInput').value = randomCommand;
+                        sendMessage();
+                        voiceBtn.classList.remove('listening');
+                        isListening = false;
+                    }
+                }, 3000);
+            } else {
+                voiceBtn.classList.remove('listening');
+            }
+        }
+
+        // Smooth Scroll Animation
+        document.querySelectorAll('.skill-card, .timeline-content').forEach(element => {
+            element.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Dynamic Theme Based on Time
+        const hour = new Date().getHours();
+        if (hour >= 6 && hour < 18) {
+            // Day mode adjustments (optional)
+            document.documentElement.style.setProperty('--primary', '#00ffcc');
+        } else {
+            // Night mode (default)
+            document.documentElement.style.setProperty('--primary', '#00ffcc');
+        }
+    </script>
+</body>
 </html>
+
