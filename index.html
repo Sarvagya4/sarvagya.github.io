@@ -334,6 +334,63 @@
             animation: fillProgress 2s ease;
         }
 
+        /* Project Cards Enhancement */
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), #00ccaa, var(--secondary));
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(0, 255, 204, 0.02);
+            box-shadow: 0 25px 50px rgba(0, 255, 204, 0.3);
+        }
+
+        .project-tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+        }
+
         @keyframes fillProgress {
             from { width: 0; }
         }
@@ -628,21 +685,51 @@
         </h2>
         
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Clavrcode</h3>
-                <p>AI coding assistant for end-to-end web/app generation through natural language prompts</p>
+            <div class="project-card">
+                <div>
+                    <h3>Clavrcode</h3>
+                    <p>AI coding assistant for end-to-end web/app generation through natural language prompts</p>
+                </div>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">LangGraph</span>
+                    <span class="tech-tag">gRPC</span>
+                    <span class="tech-tag">E2B</span>
+                    <span class="tech-tag">Django</span>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>Motolens AI</h3>
-                <p>Optimized YOLOv5 models for helmet/license plate detection with Django/Celery/Redis</p>
+            <div class="project-card">
+                <div>
+                    <h3>Motolens AI</h3>
+                    <p>Optimized YOLOv5 models for helmet/license plate detection with Django/Celery/Redis</p>
+                </div>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">YOLOv5</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Celery</span>
+                    <span class="tech-tag">Redis</span>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>OCTO-AI Fitness</h3>
-                <p>Real-time planning engine for personalized fitness and diet regimens</p>
+            <div class="project-card">
+                <div>
+                    <h3>OCTO-AI Fitness</h3>
+                    <p>Real-time planning engine for personalized fitness and diet regimens</p>
+                </div>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
             </div>
-            <div class="skill-card">
-                <h3>Banking77</h3>
-                <p>Fine-tuned BERT model for banking intent classification with 77 categories</p>
+            <div class="project-card">
+                <div>
+                    <h3>Banking77</h3>
+                    <p>Fine-tuned BERT model for banking intent classification with 77 categories</p>
+                </div>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">BERT</span>
+                    <span class="tech-tag">PyTorch</span>
+                    <span class="tech-tag">Transformers</span>
+                </div>
             </div>
         </div>
     </div>
@@ -672,8 +759,15 @@
         </div>
     </div>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18,15 12,9 6,15"></polyline>
+        </svg>
+    </button>
+
     <!-- Voice Command Button -->
-    <div class="voice-btn" id="voiceBtn" onclick="toggleVoice()">
+    <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
             <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -737,15 +831,35 @@
         }
         typeText();
 
-        // AI Chat Responses
-        // AI Chat Responses
+        // Enhanced AI Chat Responses with more personality
         const responses = {
-            skills: "My core technical skills include:\n\n• Frameworks: TensorFlow, PyTorch, Keras, OpenCV, LangChain, LangGraph\n• Backend: Docker, Kubernetes, gRPC, Kafka, Django, Celery, Redis\n• Specializations: Computer Vision, NLP, Transformers, LLMs, Generative AI, Multi-agent Systems",
-            experience: "Professional Experience:\n\n1. Clavrit (Current):\n- Building AI coding assistant (Clavrcode) for natural language to code generation\n- Designed multi-agent architecture with Planner/Controller/Developer Agents\n- Implemented real-time code execution with E2B sandboxes\n\n2. Ernst & Young:\n- Enhanced forecasting models for Unilever India\n- Analyzed 10 years of consumer data to identify market trends",
-            projects: "Notable Projects:\n\n• Clavrcode: AI coding assistant for web/app generation through NL prompts\n• Motolens AI: Optimized YOLOv5 models for helmet/license plate detection\n• OCTO-AI: Real-time fitness planning engine with personalized regimens\n• Banking77: Fine-tuned BERT model for banking intent classification\n• EY Technathon: Built Frontier AI + Web3 solution (Runner-Up)",
-            contact: "Contact Information:\n\n📧 Email: sarvagyatayal@gmail.com\n📞 Phone: +91 89558 61922\n💻 GitHub: github.com/Sarvagya4\n👔 LinkedIn: linkedin.com/in/sarvagyatayal",
-            default: "I can tell you about my skills, experience, projects, or how to contact me. What would you like to know?"
+            skills: "🚀 My technical arsenal includes:\n\n• Deep Learning: TensorFlow, PyTorch, Keras - building neural networks that actually work!\n• Computer Vision: OpenCV, YOLOv5 - teaching machines to see better than humans\n• NLP/LLMs: LangChain, LangGraph, Transformers - making AI understand human language\n• Backend Magic: Docker, Kubernetes, gRPC, Kafka - scaling systems like a boss\n• Specializations: Multi-agent systems, Generative AI, Real-time analytics\n\nI love turning complex AI research into production-ready solutions! 💡",
+            
+            experience: "💼 My professional journey:\n\n🔥 Clavrit (Current - Remote):\n• Building Clavrcode - think Replit meets GPT for code generation\n• Architected multi-agent systems with 500+ lines of code per interaction\n• Integrated E2B sandboxes for real-time code execution (pretty cool stuff!)\n\n📊 Ernst & Young (2023):\n• Enhanced Unilever's forecasting using 10 years of consumer data\n• Identified market trends that drove strategic decisions\n\nFrom corporate consulting to cutting-edge AI startups - I've seen it all! 🌟",
+            
+            projects: "🛠️ Projects that make me proud:\n\n🤖 Clavrcode: Natural language → Full web apps (my current obsession)\n🏍️ Motolens AI: YOLOv5-powered helmet detection saving lives\n💪 OCTO-AI: Personalized fitness AI that actually gets you moving\n🏦 Banking77: BERT model for banking intents (78% accuracy!)\n🏆 EY Techathon: Frontier AI + Web3 solution (Runner-up!)\n\nEach project taught me something new about building AI that matters 🎯",
+            
+            contact: "📬 Let's connect and build something amazing:\n\n📧 sarvagyatayal@gmail.com\n📱 +91 89558 61922\n💻 GitHub: github.com/Sarvagya4\n💼 LinkedIn: linkedin.com/in/sarvagyatayal\n\n🚀 Always excited to discuss AI, collaborate on projects, or just geek out about the latest in ML!\n\nDrop me a line - I typically respond within 24 hours ⚡",
+            
+            default: "🤔 I can tell you about my skills, experience, projects, or how to reach me. What sparks your curiosity? Or ask me anything specific - I love diving deep into technical discussions! 🚀"
         };
+
+        // Scroll functionality
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         function askQuestion(topic) {
             const input = document.getElementById('chatInput');
